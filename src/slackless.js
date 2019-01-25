@@ -1,14 +1,7 @@
 (function(){
   'use strict';
 
-  var debug = false;
-  var version = "0.1.3";
-
-  // Because sometimes things break and you can't tell if the script
-  // is even loading in the Slack app.
-  if (debug) {
-    alert('slackless version ' + version);
-  }
+  var version = "0.1.4";
 
   // var inApp = window.TSSSB && window.TSSSB.env && window.TSSSB.envdesktop_app_version;
 
@@ -27,8 +20,8 @@
           top: 0;
           width: 100%;
           height: 100%;
-          background: #78bbe7;
-          color: white;
+          background: #4D394B;
+          color: #FFFFFF;
           font-family: Monaco,Menlo,Consolas,"Courier New",monospace;
           font-size: 10px;
           text-align: center;
@@ -36,7 +29,6 @@
 
         #slackless p {
           margin: auto auto;
-          color: white;
           font-weight: bold;
           text-decoration: none;
         }
@@ -87,8 +79,25 @@
     }
   }
 
-  window.document.addEventListener("keydown", e => {
-    if (locked()) {
+  var setColors = function() {
+    var theme = TS.prefs.getPref('sidebar_theme');
+    var colors;
+
+    if (theme == 'custom_theme') {
+      colors = JSON.parse(TS.prefs.getPref('sidebar_theme_custom_values'));
+    } else {
+      colors = TS.sidebar_themes.default_themes[theme];
+    }
+
+    $slackless.css('background', colors['column_bg']);
+    $slackless.css('color', colors['text_color']);
+  }
+
+  window.document.addEventListener('keydown', e => {
+    // team swicher (48-57), W (87), H (72), R (82)
+    var k = e.keyCode;
+    var allowed = e.metaKey && ((k <= 57 && k >= 48) || k == 87 || k == 72 || k == 82);
+    if (locked() && !allowed) {
       e.preventDefault();
       e.stopPropagation();
     }
@@ -102,6 +111,12 @@
     }
   }, true);
 
-  console.log('slackless: loaded');
+  TS.prefs.sidebar_theme_changed_sig.add(function() {
+    setColors();
+  })
+
+  setColors();
   toggleLocked();
+
+  console.log('slackless: loaded version ' + version);
 })();
