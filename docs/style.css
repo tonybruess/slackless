@@ -1,0 +1,116 @@
+html {
+    height: 100%;
+    position: relative;
+    overflow-x: hidden;
+}
+
+body {
+    position: relative;
+    overflow-x: hidden;
+    font-size: 15px;
+    font-family: Monaco,Menlo,Consolas,"Courier New",monospace;
+    line-height:1.6;
+    margin: 0;
+    color: white;
+
+    background: #4682aa;
+    background: -moz-linear-gradient(top,  #4682aa 0%, #2e6ba6 100%);
+    background: -webkit-linear-gradient(top,  #4682aa 0%,#2e6ba6 100%);
+    background: linear-gradient(to bottom,  #4682aa 0%,#2e6ba6 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4682aa', endColorstr='#2e6ba6',GradientType=0 );
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
+#wrap {
+    margin: 0 auto;
+    max-width: 620px;
+    padding: 10px 10px;
+}
+
+h1, h2, h3{
+    line-height:1.2;
+    margin: 1em 0 0.25em 0;
+}
+
+p.note {
+    font-size: 13px;
+}
+
+img {
+    width: 100%;
+}
+
+pre {
+    font-family: inherit;
+    color: white;
+    padding: 10px;
+    font-size: 14px;
+
+    border: 1px solid white;
+    background-color: rgba(255,255,255,0.2);
+
+    overflow-x: scroll;
+}
+
+code {
+    white-space: nowrap;
+    border: 1px solid white;
+    border-radius: 2px;
+    background-color: rgba(255,255,255,0.2);
+    padding: 2px 5px;
+    line-height: 1.2;
+}
+
+a, a:visited {
+    color: #2020ff;
+    text-decoration: none;
+}
+a:hover {
+    font-weight: bolder;
+}
+
+.ribbon {
+    position: absolute;
+    top: 42px;
+    width: 200px;
+    padding: 1px 0;
+    background: white;
+
+    -moz-box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+.ribbon.right{
+    right: -42px;
+    -moz-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.ribbon a {
+    color: #4682aa;
+    font-weight: 900;
+    display: block;
+    padding: 1px 0;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+}
+
+footer {
+    display: block;
+    font-size: 12px;
+    text-align: right;
+}
+
+footer a, footer a:visited {
+    color: white;
+}
+footer img {
+    width: 30px;
+    vertical-align: middle;
+}

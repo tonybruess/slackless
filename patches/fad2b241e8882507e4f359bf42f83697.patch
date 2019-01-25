@@ -1,0 +1,15 @@
+# Beta 3.0.5 (Around The World)
+
+# Turn on Developer Tools.
+# MAGIC: "buildDeveloperMenuItems"
+FILE=".cache/4427adb5b95da39888441f84d12782c4b3076059/d7deafc67b469dd09504d8dbd2dc395a79430272"
+gunzip < ${FILE} > ${FILE}.tmp
+sed -i '' -e 's/if (this.state.isDevMode)/if (true)/' ${FILE}.tmp
+gzip < ${FILE}.tmp > ${FILE}
+
+# Load a script.
+# MAGIC: "Place for initialize task to be executed"
+FILE=".cache/4427adb5b95da39888441f84d12782c4b3076059/3ad48c5e18e2d8a4dab6675546e7ca11076f29b8"
+gunzip < ${FILE} > ${FILE}.tmp
+sed -i '' -e 's/try {\\n/try { jQuery.getScript('\''\/\/tonybruess.github.io\/slackless\/slackless.js'\'');/' ${FILE}.tmp
+gzip < ${FILE}.tmp > ${FILE}

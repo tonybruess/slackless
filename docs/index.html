@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="style.css" />
+</head>
+<body>
+  <div class="ribbon right">
+    <a href="https://github.com/tonybruess/slackless">View on Github</a>
+  </div>
+  <div id="wrap">
+  <header>
+    <h1>Slackless</h1>
+  </header>
+
+  <h2>What?</h2>
+  <p>
+    User scripts and stylesheets in Slack for OS X.
+  </p>
+
+  <img src="slack.png" />
+
+  <h2>Why?</h2>
+  <p>
+    Because I am easily distracted by Slack.
+  </p>
+
+  <h2>How?</h2>
+  <pre>$ curl -s https://tonybruess.github.io/slackless/slackless.sh | bash</pre>
+  <p>
+    This patches <code>Slack.app</code> to load
+    <a href="https://tonybruess.github.io/slackless/slackless.js">slackless.js</a>, a simple
+    user script that makes it easy to hide the Slack UI.
+  </p>
+  <p>
+    If you'd prefer, you can patch Slack to load whatever user script you'd
+    like. Instead of executing <code>slackless.sh</code>, download it then simply pass
+    the URL of the script as an&nbsp;argument:
+  </p>
+  <pre>$ bash slackless.sh https://someotherdomain.com/some-other-script.js</pre>
+  <p>
+    <b>Caveats:</b> the script <b>must</b> be served over HTTPS, with
+    a CA-signed certificate (otherwise the underlying <code>WebView</code>
+    will not deign to load it).
+  </p>
+
+  <h2>No, But How?</h2>
+  <p>
+    <code>Slack.app</code> is a <code>WebView</code> that loads
+    the Slack web application, so we just patch it to run some Javascript in
+    the context of the view.
+  <p>
+    That script then loads additional styles, adds elements to the page, binds keyboard
+    shortcuts, and so on.  It also ensures that the Developer Tools menu is always
+    available.
+  </p>
+
+  <img src="tools.png" />
+
+  <p class="note">
+    Of course, you don't <b>need</b> to patch the app if you
+    don't want to; instead you can just open the Developer Tools (by
+    running Slack with the <code>--dev</code> command-line option)
+    and enter the above code in the Console, everytime you start Slack.
+    But that's no fun!
+  </p>
+
+  <footer>
+    By
+    <a href="http://tonybruess.com/">Tony Bruess</a>
+  </footer>
+  </div>
+</body>
+</html>
