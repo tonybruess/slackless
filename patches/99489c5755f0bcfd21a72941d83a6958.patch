@@ -11,5 +11,5 @@ gzip < ${FILE}.tmp > ${FILE}
 # MAGIC: "Place for initialize task to be executed"
 FILE=".cache/dc26e75adcb4741bc5020eff694142efad2ec150/def0b0ea7b584837d6d2d8cd9eb553bb6112687f"
 gunzip < ${FILE} > ${FILE}.tmp
-sed -i '' -e 's/try {\\n/try { jQuery.getScript('\''\/\/tonybruess.github.io\/slackless\/slackless.js'\'');/' ${FILE}.tmp
+sed -i '' -e 's/reportInitialAccessibility();/jQuery.getScript('\''\/\/tonybruess.github.io\/slackless\/slackless.js'\'');\\n  reportInitialAccessibility();/' ${FILE}.tmp
 gzip < ${FILE}.tmp > ${FILE}
