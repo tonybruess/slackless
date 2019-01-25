@@ -2,7 +2,7 @@
   'use strict';
 
   var debug = false;
-  var version = "0.1.0";
+  var version = "0.1.1";
 
   // Because sometimes things break and you can't tell if the script
   // is even loading in the Slack app.
