@@ -2,7 +2,7 @@
   'use strict';
 
   var debug = false;
-  var version = "0.1.1";
+  var version = "0.1.2";
 
   // Because sometimes things break and you can't tell if the script
   // is even loading in the Slack app.
@@ -15,19 +15,19 @@
   /////////////////////////////////////////////////////////////////////
   // Hide Slack
   /////////////////////////////////////////////////////////////////////
+  var $sidebar = $('.client_channels_list_container');
   var $slackless = $(`
-    <div id="slackless" style="display: none">
+    <div id="slackless">
       <style>
         #slackless {
           display: flex;
           position: absolute;
-          z-index: 100000;
+          z-index: 10000;
           left: 0;
           top: 0;
           width: 100%;
           height: 100%;
           background: #78bbe7;
-          border: 1px solid white;
           color: white;
           font-family: Monaco,Menlo,Consolas,"Courier New",monospace;
           font-size: 10px;
@@ -48,10 +48,13 @@
       <p>
         <span id="header">Get back to work!</span>
         <br><br><br>
-        Unlock slack with command + j
+        Unlock Slack with command + j
+        <br>
+        Toggle sidebar with command + ctrl + j
       </p>
     </div>
   `);
+
   $('#slackless').remove();
   $('body').append($slackless);
 
@@ -64,35 +67,41 @@
     return $slackless.is(":visible");
   }
 
-  var toggle = function() {
+  var clean = function() {
+    return $sidebar.is(":hidden");
+  }
+
+  var toggleLocked = function() {
     if (locked()) {
       $slackless.hide();
-      TS.kb_nav.pause(false);
     } else {
       $slackless.show();
-      TS.kb_nav.pause(true);
     }
   };
 
-  // Bind Command+W to leave, except when we're not really
-  // in the Slack app.
-  var bindings = {
-    74: {
-      func: toggle,
-      no_shift: true
+  var toggleClean = function() {
+    if (clean()) {
+      $sidebar.show();
+    } else {
+      $sidebar.hide();
     }
-  };
+  }
 
-  // `TS.key_triggers` no longer has a public interface for adding
-  // shortcuts, so we have to hack it in.
-  var getFromCode = TS.key_triggers.getFromCode;
-  TS.key_triggers.getFromCode = function t(i) {
-    var ii = TS.interop.i18n.keyCodeEquivalent(i, {useReverseMap:true}).toString();
-    var binding = bindings[ii];
-    if (binding) return binding;
-    if (!locked()) return getFromCode(i);;
-  };
+  window.document.addEventListener("keydown", e => {
+    if (locked()) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+
+    if (e.keyCode == 74) {
+      if (e.metaKey && e.ctrlKey) {
+        toggleClean();
+      } else if (e.metaKey) {
+        toggleLocked();
+      }
+    }
+  }, true);
 
   console.log('slackless: loaded');
-  toggle();
+  toggleLocked();
 })();
