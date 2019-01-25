@@ -14,6 +14,7 @@ else
   echo "slackless: found Slack version ${SLACK_VERSION}"
 fi
 
+ASAR_CMD="${ASAR_CMD:-asar}"
 ASAR="${RESOURCES_DIR}/app.asar"
 ASAR_BACKUP="${ASAR}.backup"
 ASAR_UNPACKED="${ASAR}.unpacked"
@@ -43,11 +44,17 @@ if [[ "$1" != "" ]]; then
 fi
 
 # Quit Slack
-osascript -e 'quit app "Slack"'
+echo "slackless: quitting Slack..."
+osascript <<EOF
+repeat until app "Slack" is not running
+    quit app "Slack"
+    delay 1
+end repeat
+EOF
 
 # Extract asar.
 echo "slackless: extracting asar..."
-cd "${RESOURCES}" && asar extract "${ASAR}" "${ASAR_UNPACKED}"
+cd "${RESOURCES}" && "${ASAR_CMD}" extract "${ASAR}" "${ASAR_UNPACKED}"
 
 # Patch.
 cd "${ASAR_UNPACKED}" && bash "${PATCH}" "${URL}"
@@ -58,18 +65,18 @@ fi
 
 # Pack asar.
 echo "slackless: packing asar..."
-cd "${RESOURCES}" && asar pack "${ASAR_UNPACKED}" "${ASAR}"
+cd "${RESOURCES}" && "${ASAR_CMD}" pack "${ASAR_UNPACKED}" "${ASAR}"
 
 # Disable gatekeeper
-echo "slackless: temporarily disabling gatekeeper. please enter your password if prompted"
+echo "slackless: temporarily disabling gatekeeper... please enter your password if prompted"
 sudo spctl --master-disable
 
 # Open Slack
-echo "slackless: opening Slack. please click 'Open' when prompted"
+echo "slackless: opening Slack... please click 'Open' when prompted"
 open "${SLACK_DIR}"
 
 # Enable gatekeeper
-echo "slackless: re-enabling gatekeeper. please enter your password if prompted"
+echo "slackless: re-enabling gatekeeper..."
 sudo spctl --master-enable
 
 echo "slackless: done"
