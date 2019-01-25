@@ -2,7 +2,7 @@
   'use strict';
 
   var debug = false;
-  var version = "0.1.2";
+  var version = "0.1.3";
 
   // Because sometimes things break and you can't tell if the script
   // is even loading in the Slack app.
@@ -17,7 +17,7 @@
   /////////////////////////////////////////////////////////////////////
   var $sidebar = $('.client_channels_list_container');
   var $slackless = $(`
-    <div id="slackless">
+    <div id="slackless" style="display: none;">
       <style>
         #slackless {
           display: flex;
