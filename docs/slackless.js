@@ -1,9 +1,7 @@
 (function(){
   'use strict';
 
-  var version = "0.1.5";
-
-  // var inApp = window.TSSSB && window.TSSSB.env && window.TSSSB.envdesktop_app_version;
+  var version = "0.1.6";
 
   /////////////////////////////////////////////////////////////////////
   // Hide Slack
@@ -63,11 +61,19 @@
     return $sidebar.is(":hidden");
   }
 
+  var lock = function() {
+    $slackless.show();
+  }
+
+  var unlock = function() {
+    $slackless.hide();
+  }
+
   var toggleLocked = function() {
     if (locked()) {
-      $slackless.hide();
+      unlock();
     } else {
-      $slackless.show();
+      lock();
     }
   };
 
@@ -93,8 +99,9 @@
     $slackless.css('color', colors['text_color']);
   }
 
+
   window.document.addEventListener('keydown', e => {
-    // team swicher (48-57), W (87), H (72), R (82)
+    // allow cmd + team swicher (48-57), W (87), H (72), R (82)
     var k = e.keyCode;
     var allowed = e.metaKey && ((k <= 57 && k >= 48) || k == 87 || k == 72 || k == 82);
     if (locked() && !allowed) {
@@ -115,8 +122,18 @@
     setColors();
   })
 
+  // auto-lock after 5 minutes
+  var autoLockTaskId;
+  TS.ui.window_focus_changed_sig.add(function(focused) {
+    if (focused) {
+      clearTimeout(autoLockTaskId);
+    } else {
+      autoLockTaskId = setTimeout(lock, 1000 * 60 * 5);
+    }
+  })
+
   setColors();
-  toggleLocked();
+  lock();
 
   console.log('slackless: loaded version ' + version);
 })();
