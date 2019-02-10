@@ -1,7 +1,13 @@
 (function(){
   'use strict';
 
-  var version = "0.1.6";
+  var version = "0.1.7";
+
+  // only load for messages
+  if (TS.boot_data.app != "client") {
+    console.log('slackless: not loading')
+    return;
+  }
 
   /////////////////////////////////////////////////////////////////////
   // Hide Slack
