@@ -18,14 +18,14 @@ Read on...
 
 ## Installation
 
-    $ ./bin/patch.sh
+    $ ./patch.sh
 
 This will patch `Slack.app` to load <https://tonybruess.github.io/slackless/slackless.js>.
 
 **NOTE: the following is currently broken:** If you'd prefer you can patch it to
 load any script you'd like. Assuming it is hosted at `$URL`:
 
-    $ ./bin/patch.sh $URL
+    $ ./patch.sh $URL
 
 See <https://tonybruess.github.io/slackless/> for more information.
 

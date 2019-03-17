@@ -19,7 +19,7 @@ echo "slackless: extracting..."
 tar -xzf "${RELEASE_BUNDLE}" -C "${SLACKLESS_DIR}" --strip-components 1
 
 # Patch
-bash "${SLACKLESS_DIR}/bin/patch.sh" $1
+bash "${SLACKLESS_DIR}/patch.sh" $1
 
 # Cleanup
 rm -r "${TMP_DIR}"
