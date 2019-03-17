@@ -54,6 +54,24 @@ Oh no, it doesn't work, because security! If you are running Chrome, you
 can temporarily disable the Mixed Content error with the `--allow-running-insecure-content`
 command line argument.
 
+## Updating
+
+1. Create a new patch file with the md5 of the asar
+
+```
+cd /Applications/Slack.app/Contents/Resources/
+md5 app.asar
+```
+
+2. Update the patch by finding the newly named files
+
+```
+asar extract app.asar app.asar.temp
+cd app.asar.temp/.cache
+find . -type f ! -name "*.*" | xargs -I {} sh -c "cat {} | gunzip > {}.js"
+grep -rl "MAGIC" .
+```
+
 ## Special Thanks
 
 This project is a fork of https://github.com/zachsnow/slinger. Thanks Zach!
