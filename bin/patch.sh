@@ -18,11 +18,10 @@ fi
 ASAR_CMD="${ASAR_CMD:-asar}"
 if [[ ! -x `command -v ${ASAR_CMD}` ]]; then
   ASAR_CMD="${SLACKLESS_DIR}/node_modules/.bin/asar"
-fi
-
-if [[ ! -x `command -v ${ASAR_CMD}` ]]; then
-  echo "slackless: installing asar..."
-  npm --prefix ${SLACKLESS_DIR} --silent install asar
+  if [[ ! -x `command -v ${ASAR_CMD}` ]]; then
+    echo "slackless: installing asar..."
+    npm --prefix ${SLACKLESS_DIR} --silent install asar
+  fi
 fi
 
 ASAR="${RESOURCES_DIR}/app.asar"
