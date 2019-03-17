@@ -14,7 +14,17 @@ else
   echo "slackless: found Slack version ${SLACK_VERSION}"
 fi
 
+# Make sure we have asar.
 ASAR_CMD="${ASAR_CMD:-asar}"
+if [[ ! -x `command -v ${ASAR_CMD}` ]]; then
+  ASAR_CMD="${SLACKLESS_DIR}/node_modules/.bin/asar"
+fi
+
+if [[ ! -x `command -v ${ASAR_CMD}` ]]; then
+  echo "slackless: installing asar..."
+  npm --prefix ${SLACKLESS_DIR} --silent install asar
+fi
+
 ASAR="${RESOURCES_DIR}/app.asar"
 ASAR_BACKUP="${ASAR}.backup"
 ASAR_UNPACKED="${ASAR}.unpacked"
