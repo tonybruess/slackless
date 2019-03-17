@@ -3,3 +3,4 @@
 build/
 Slack
 *.bak
+node_modules
