@@ -18,12 +18,8 @@ fi
 echo "slackless: extracting..."
 tar -xzf "${RELEASE_BUNDLE}" -C "${SLACKLESS_DIR}" --strip-components 1
 
-# Install asar locally
-npm --prefix ${SLACKLESS_DIR} --silent install asar
-ASAR_CMD="${SLACKLESS_DIR}/node_modules/.bin/asar"
-
 # Patch
-ASAR_CMD="${ASAR_CMD}" bash "${SLACKLESS_DIR}/bin/patch.sh" $1
+bash "${SLACKLESS_DIR}/bin/patch.sh" $1
 
 # Cleanup
 rm -r "${TMP_DIR}"
