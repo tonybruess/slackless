@@ -1,0 +1,15 @@
+# 3.4.0
+
+# Turn on Developer Tools.
+# MAGIC: "buildDeveloperMenuItems"
+FILE=".cache/647bc0d47513fb757833253e92bef3178a55440d/e9a02b7a8638d5b3bac9c6adeffaeb05517fff1c"
+gunzip < ${FILE} > ${FILE}.tmp
+sed -i '' -e 's/if (this.state.isDevMode)/if (true)/' ${FILE}.tmp
+gzip < ${FILE}.tmp > ${FILE}
+
+# Load a script.
+# MAGIC: "Place for initialize task to be executed"
+FILE=".cache/647bc0d47513fb757833253e92bef3178a55440d/28427f049f211f26cd342d407416f40f819f1e50"
+gunzip < ${FILE} > ${FILE}.tmp
+sed -i '' -e 's/reportInitialAccessibility();/jQuery.getScript('\''\/\/tonybruess.github.io\/slackless\/slackless.js'\'');\\n  reportInitialAccessibility();/' ${FILE}.tmp
+gzip < ${FILE}.tmp > ${FILE}
