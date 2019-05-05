@@ -7,7 +7,7 @@ RELEASE_BUNDLE="${TMP_DIR}/slackless.tar.gz"
 RELEASE_URL=`curl -s https://api.github.com/repos/tonybruess/slackless/releases/latest | grep tarball_url | head -n 1 | cut -d '"' -f 4`
 
 echo "slackless: downloading release ${RELEASE_URL}..."
-wget -q -O "${RELEASE_BUNDLE}" "${RELEASE_URL}"
+curl -L -o "${RELEASE_BUNDLE}" "${RELEASE_URL}" # -L follows redirects
 if [ $? -ne 0 ];
 then
   echo "slackless: chould not download latest release."
